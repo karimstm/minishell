@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 10:15:13 by amoutik           #+#    #+#             */
-/*   Updated: 2018/12/25 08:49:12 by amoutik          ###   ########.fr       */
+/*   Updated: 2018/12/29 10:36:28 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int		ft_execvp(const char *file, char *const argv[])
 	return (1);
 }
 
-char	*lsh_read_line(void)
+char	*read_line(void)
 {
 	char *line = NULL;
-	size_t bufsize = 0; // have getline allocate a buffer for us
+	size_t bufsize = 0;
 	getline(&line, &bufsize, stdin);
-	line[strlen(line) - 1] = '\0';
+	line[ft_strlen(line) - 1] = '\0';
 	return line;
 }
 
@@ -92,11 +92,15 @@ void	load_shell()
 	char *input;
 
 	//input = readline();
-	input = lsh_read_line();
+	input = read_line();
 	if (ft_strcmp(input, "exit") == 0)
 		exit(0);
 	command = get_input(input);
-	launch_exec(command);
+	if (!build_in(command))
+	{
+		command[0] = get_path(command[0]);
+		launch_exec(command);
+	}
 	free(input);
 	free(command);
 }

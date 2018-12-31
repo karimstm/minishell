@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 15:42:35 by amoutik           #+#    #+#             */
-/*   Updated: 2018/12/24 17:36:27 by amoutik          ###   ########.fr       */
+/*   Updated: 2018/12/29 10:41:01 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,34 @@ int		is_exists(char *filename)
 char	*get_path(char *command)
 {
 	char *path;
-	char **files;
 	char *parsed;
-	int i;
 
-	if ((files = (char **)malloc(sizeof(char *) * 100)) == NULL)
-		return (NULL);
-	path = ft_getenv("PATH");
-	i = 0;
+	path = ft_strdup(ft_getenv("PATH"));
 	parsed = ft_strtok(path, ":");
+	if (command == NULL)
+		return (command);
 	while (parsed != NULL)
 	{
-		files[i] = ft_strjoin(parsed, "/");
-		files[i] = ft_strjoin(files[i], command);
-		if (is_exists(files[i]))
-		{
-			command = ft_strdup(files[i]);
-			break ;
-		}
+		parsed = ft_strjoin(parsed, "/");
+		parsed = ft_strjoin(parsed, command);
+		if (is_exists(parsed))
+			return (parsed);
 		parsed = ft_strtok(NULL, ":");
-		i++;
 	}
-	free(files);
 	return (command);
+}
+
+int		build_in(char **command)
+{
+	if (ft_strcmp("env", command[0]) == 0)
+	{
+		print_env();
+		return (1);
+	}
+	if (ft_strcmp("cd" , command[0]) == 0)
+	{
+		char_dir(command);
+		return (1);
+	}
+	return (0);
 }

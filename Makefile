@@ -4,6 +4,7 @@ SRC = src
 BIN = bin
 INC = inc
 LIB = lib
+BUILT = builtin
 
 SOURCE = $(wildcard $(SRC)/*.c)
 OBJECT = $(patsubst %, $(BIN)/%, $(notdir $(SOURCE:.c=.o)))
