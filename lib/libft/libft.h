@@ -6,7 +6,7 @@
 /*   By: amoutik <abdelkarimoutik@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 12:57:03 by amoutik           #+#    #+#             */
-/*   Updated: 2018/12/24 12:59:57 by amoutik          ###   ########.fr       */
+/*   Updated: 2018/12/31 14:54:08 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ size_t			ft_strcspn(const char *s, const char *charset);
 char			*ft_strtrim(char const *s);
 void			ft_putnbr_fd(int n, int fd);
 char			*ft_strtok(char *str, const char *delim);
-char			*ft_getenv(const char *name);
 
 #endif

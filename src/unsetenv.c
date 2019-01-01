@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   unsetenv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/29 10:34:27 by amoutik           #+#    #+#             */
-/*   Updated: 2018/12/31 14:36:51 by amoutik          ###   ########.fr       */
+/*   Created: 2018/12/31 09:53:24 by amoutik           #+#    #+#             */
+/*   Updated: 2018/12/31 15:25:01 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		print_env()
+int		ft_unsetenv(const char *name)
 {
-	int i;
+	char	**p;
+	int		offset;
 
-	i = 0;
-	while(g_environ[i] != NULL)
-		printf("%s\n", g_environ[i++]);
+	while (ft_findenv(name, &offset))
+	{
+		p = &g_environ[offset];
+		while (1)
+		{
+			if ((*p = *(p + 1)))
+				break;
+			++p;
+		}
+	}
+	return (0);
 }

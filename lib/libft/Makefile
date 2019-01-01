@@ -14,7 +14,7 @@ SRCS = ft_lstnew.c     ft_putstr_fd.c  ft_strncat.c\
 		ft_itoa.c       ft_putchar_fd.c ft_striteri.c   ft_strsub.c\
 		ft_lstadd.c     ft_putendl.c    ft_strjoin.c    ft_strtrim.c\
 		ft_lstdel.c     ft_putendl_fd.c ft_strlcat.c    ft_tolower.c\
-		ft_lstdelone.c  ft_putnbr.c     ft_strlen.c     ft_toupper.c ft_getenv.c\
+		ft_lstdelone.c  ft_putnbr.c     ft_strlen.c     ft_toupper.c\
 		ft_lstiter.c    ft_putnbr_fd.c  ft_strmap.c  ft_strspn.c ft_strtok.c\
 		ft_lstmap.c     ft_putstr.c     ft_strmapi.c ft_strcspn.c ft_abs.c
 
