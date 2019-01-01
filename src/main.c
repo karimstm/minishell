@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 10:15:13 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/01 10:11:45 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/01 10:26:41 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*readline()
 	char buffer[MAX_LEN];
 	int ret = 0;
 	char *current = (char *)malloc(sizeof(char) * 1);
-
+	
+	current[0] = '\0';
 	while ((ret = read(0, buffer, 1)))
 	{
 		buffer[ret] = '\0';
@@ -64,15 +65,6 @@ int		ft_execvp(const char *file, char *const argv[])
 	return (1);
 }
 
-char	*read_line(void)
-{
-	char *line = NULL;
-	size_t bufsize = 0;
-	getline(&line, &bufsize, stdin);
-	line[ft_strlen(line) - 1] = '\0';
-	return line;
-}
-
 int		launch_exec(char **command)
 {
 	pid_t child_pid;
@@ -100,8 +92,7 @@ void	load_shell()
 	char **command;
 	char *input;
 
-	//input = readline();
-	input = read_line();
+	input = readline();
 	if (ft_strcmp(input, "exit") == 0)
 		exit(0);
 	command = get_input(input);
@@ -132,7 +123,7 @@ int		main()
 	signal(SIGINT, handler);
 	while (1)
 	{
-		printf("$> ");
+		write(1, "$> ", 3);
 		load_shell();
 	}
 	return (0);

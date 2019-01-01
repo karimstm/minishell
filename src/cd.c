@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 18:06:34 by amoutik           #+#    #+#             */
-/*   Updated: 2018/12/31 15:51:42 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/01 10:56:30 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 void	change_env(char *oldpath, char *newpath)
 {
-	if (newpath[0] != '/')
-		newpath = ft_strjoin(ft_strjoin(oldpath, "/"), newpath);
-	/* Do not forget the implement the two '..' into your code */
+	if (oldpath == NULL)
+		oldpath = newpath;
 	ft_setenv("OLDPWD", oldpath, 1);
 	ft_setenv("PWD", newpath, 1);
 }
