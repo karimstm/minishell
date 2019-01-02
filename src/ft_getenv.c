@@ -6,23 +6,39 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 12:58:43 by amoutik           #+#    #+#             */
-/*   Updated: 2018/12/31 15:20:10 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/02 11:01:47 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *ft_findenv(const char *name, int *offset)
+int			check_name(const char *name, const char *np, int *len)
 {
-	int len, i;
-	const char *np;
-	char **p, *cp;
 	if (name == NULL || g_environ == NULL)
-		return (NULL);
+		return (0);
 	np = name;
 	while (*np && *np != '=')
 		++np;
-	len = np - name;
+	*len = np - name;
+	return (1);
+}
+
+char		*return_env(char *cp, char **p, int *offset)
+{
+	*offset = p - g_environ;
+	return (cp);
+}
+
+char		*ft_findenv(const char *name, int *offset)
+{
+	int			len;
+	int			i;
+	const char	*np;
+	char		**p;
+	char		*cp;
+
+	if (!check_name(name, np, &len))
+		return (NULL);
 	p = g_environ;
 	while ((cp = *p) != NULL)
 	{
@@ -31,20 +47,19 @@ char *ft_findenv(const char *name, int *offset)
 		while (i && *cp)
 		{
 			if (*cp++ != *np++)
-				break;
+				break ;
 			i--;
 		}
-		if (i == 0 && *cp++ == '=') {
-			*offset = p - g_environ;
-			return (cp);
-		}
+		if (i == 0 && *cp++ == '=')
+			return (return_env(cp, p, offset));
 		++p;
 	}
 	return (NULL);
 }
 
-char *ft_getenv(const char *name)
+char		*ft_getenv(const char *name)
 {
 	int offset;
+
 	return (ft_findenv(name, &offset));
 }

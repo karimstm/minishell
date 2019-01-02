@@ -6,12 +6,11 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 18:06:34 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/01 10:56:30 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/02 10:20:16 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	change_env(char *oldpath, char *newpath)
 {
@@ -21,28 +20,38 @@ void	change_env(char *oldpath, char *newpath)
 	ft_setenv("PWD", newpath, 1);
 }
 
-void	char_dir(char *path[])
+int		old_path(char *path[], char *currentpath, char *oldpath)
 {
-	char *homepath = ft_getenv("HOME");
-	char *currentpath = ft_getenv("PWD");
-	char *oldpath = ft_getenv("OLDPWD");
-	char cwd[PATH_MAX];
-
-	if (path[1] == NULL)
-	{
-		if (chdir(homepath) != -1)
-			change_env(currentpath, homepath);
-		return ;
-	}
 	if (path[1][0] == '-')
 	{
 		if (ft_strlen(path[1]))
 		{
 			if (chdir(oldpath) != -1)
 				change_env(currentpath, oldpath);
-			return ;
+			return (1);
 		}
 	}
+	return (0);
+}
+
+void	char_dir(char *path[])
+{
+	char *homepath;
+	char *currentpath;
+	char *oldpath;
+	char cwd[PATH_MAX];
+
+	homepath = ft_getenv("HOME");
+	currentpath = ft_getenv("PWD");
+	oldpath = ft_getenv("OLDPWD");
+	if (path[1] == NULL)
+	{
+		if (chdir(homepath) != -1)
+			change_env(currentpath, homepath);
+		return ;
+	}
+	if (old_path(path, currentpath, oldpath))
+		return ;
 	if (chdir(path[1]) == -1)
 	{
 		ft_putstr_fd(path[1], 2);

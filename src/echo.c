@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/31 10:59:13 by amoutik           #+#    #+#             */
-/*   Updated: 2018/12/31 14:26:24 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/02 11:04:31 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	echo(char **command)
 	}
 	while (command[i])
 	{
-		printf("%s%c", command[i], command[i + 1] ? ' ': '\0');
+		ft_putstr(command[i]);
+		ft_putchar(command[i + 1] ? ' ' : '\0');
 		++i;
 	}
 	if (!newline)
-		printf("\n");
+		ft_putchar('\n');
 }

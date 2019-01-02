@@ -6,17 +6,17 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 10:34:27 by amoutik           #+#    #+#             */
-/*   Updated: 2018/12/31 14:36:51 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/02 11:05:47 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		print_env()
+void		print_env(void)
 {
 	int i;
 
 	i = 0;
-	while(g_environ[i] != NULL)
-		printf("%s\n", g_environ[i++]);
+	while (g_environ[i] != NULL)
+		ft_putstr(g_environ[i++]);
 }
