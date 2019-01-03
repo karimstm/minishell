@@ -24,22 +24,23 @@ all: $(NAME)
 
 $(NAME):$(OBJECT) $(FTPRINTF)
 	@echo "$(RED)Linking...$(NC)"
-	$(CC) $(OBJECT) $(FTPRINTF) -o $(NAME)
+	@$(CC) $(OBJECT) $(FTPRINTF) -o $(NAME)
 	@echo "$(GREEN)Finished...$(NC)"
 
 $(FTPRINTF):
+	@echo "$(BLUE)Getting Libraries...$(NC)"
 	@make -C $(LIB)/libft
 
 $(BIN)/%.o : $(SRC)/%.c
-	@echo "$(BLUE)Compiling...$(NC)"
-	$(CC) $(FLAGS) $(CFLAGS) $(CPP_FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) $(CFLAGS) $(CPP_FLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJECT)
+	@echo "$(RED)Cleaning up...$(NC)"
+	@rm -rf $(OBJECT)
 	@make -C $(LIB)/libft clean
 
 fclean:clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 	@make -C $(LIB)/libft fclean
 
 re : fclean all

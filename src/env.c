@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 10:34:27 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/02 11:05:47 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/02 13:32:01 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,8 @@ void		print_env(void)
 
 	i = 0;
 	while (g_environ[i] != NULL)
+	{
 		ft_putstr(g_environ[i++]);
+		ft_putchar('\n');
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 18:06:34 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/02 10:20:16 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/03 16:53:04 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	change_env(char *oldpath, char *newpath)
 	if (oldpath == NULL)
 		oldpath = newpath;
 	ft_setenv("OLDPWD", oldpath, 1);
-	ft_setenv("PWD", newpath, 1);
 }
 
 int		old_path(char *path[], char *currentpath, char *oldpath)
@@ -27,11 +26,37 @@ int		old_path(char *path[], char *currentpath, char *oldpath)
 		if (ft_strlen(path[1]))
 		{
 			if (chdir(oldpath) != -1)
+			{
 				change_env(currentpath, oldpath);
+				ft_setenv("PWD", oldpath, 1);
+			}
 			return (1);
 		}
 	}
 	return (0);
+}
+
+void	is_accessible(char *path)
+{
+	struct stat buf;
+
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd(path, 2);
+	if (lstat(path, &buf) == -1)
+	{
+		ft_putstr_fd(": No such file or directory\n", 2);
+		return ;
+	}
+	if (!M_ISDIR(buf.st_mode))
+	{
+		ft_putstr_fd(" Not a directory\n", 2);
+		return ;
+	}
+	if (access(path, R_OK) == -1)
+	{
+		ft_putstr_fd(" Permission denied\n", 2);
+		return ;
+	}
 }
 
 void	char_dir(char *path[])
@@ -53,10 +78,7 @@ void	char_dir(char *path[])
 	if (old_path(path, currentpath, oldpath))
 		return ;
 	if (chdir(path[1]) == -1)
-	{
-		ft_putstr_fd(path[1], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-	}
+		is_accessible(path[1]);
 	else
 		change_env(currentpath, path[1]);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)

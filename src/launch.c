@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/02 10:46:15 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/02 10:51:18 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/03 15:47:54 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		get_commands(char *input, t_command_list *cmd_list)
 		push(cmd_list, ft_strdup(parsed));
 		parsed = ft_strtok(NULL, ";");
 	}
+	free(commands);
 }
 
 void		load_shell(void)
@@ -61,8 +62,6 @@ void		load_shell(void)
 	t_command_list	cmd_list;
 
 	input = readline();
-	if (ft_strcmp(input, "exit") == 0)
-		exit(0);
 	get_commands(input, &cmd_list);
 	print_commands(&cmd_list);
 	free(input);

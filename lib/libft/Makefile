@@ -24,16 +24,16 @@ OBJECTS = $(SRCS:%.c=%.o)
 all: $(NAME) $(HEADER)
 	
 $(NAME): $(OBJECTS)
-	ar rc $(NAME) $(OBJECTS)
+	@ar rc $(NAME) $(OBJECTS)
 
 $(OBJECTS): $(SRCS)
-	gcc $(CFLAGS) $(SRCS)
+	@gcc $(CFLAGS) $(SRCS)
 
 clean:
-	rm -f $(OBJECTS)
+	@rm -f $(OBJECTS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

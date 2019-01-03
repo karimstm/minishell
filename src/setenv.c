@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 11:15:37 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/02 10:15:28 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/03 15:38:58 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		set_new_env(char *entry, char **p)
 			(const char *)g_environ, size * sizeof(char *));
 	new_environ[size] = entry;
 	new_environ[size + 1] = NULL;
+	free(g_environ);
 	g_environ = new_environ;
 	return (0);
 }

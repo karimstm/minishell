@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 10:19:40 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/02 10:57:25 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/02 14:40:14 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@
 # include <sys/uio.h>
 # include <signal.h>
 # include <unistd.h>
+# include <sys/stat.h>
 # include "libft.h"
 
 # define MAX_LEN 1024
+# define M_ISDIR(m)	((m & 0170000) == 0040000)
 
 typedef struct			s_command
 {
@@ -46,7 +48,7 @@ char					*get_path(char *command);
 void					char_dir(char *path[]);
 int						build_in(char **command);
 int						ft_setenv(const char *name,
-							const char *value, int overwrite);
+		const char *value, int overwrite);
 char					*ft_getenv(const char *name);
 char					*ft_findenv(const char *name, int *offset);
 void					echo(char **command);

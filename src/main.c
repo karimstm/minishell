@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 10:15:13 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/02 10:48:27 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/03 16:02:31 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		free_list_of_commands(t_command_list *cmd)
 		while (current)
 		{
 			tmp = current->next;
+			free(current->command);
 			free(current);
 			current = tmp;
 		}
@@ -57,11 +58,12 @@ void		print_commands(t_command_list *cmd)
 			command = get_input(current->command);
 			if (command[0] && !build_in(command))
 			{
-				command[0] = get_path(ft_strdup(command[0]));
+				command[0] = get_path(command[0]);
 				launch_exec(command);
-				free(current->command);
-				free_command(command);
+				if (command[0])
+					free(command[0]);
 			}
+			free(command);
 			current = current->next;
 		}
 		free_list_of_commands(cmd);
