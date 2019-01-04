@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 10:19:40 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/02 14:40:14 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/04 19:12:03 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ typedef struct			s_command_s
 }						t_command_list;
 
 char					**g_environ;
+int						g_set_signal;
 
 void					push(t_command_list *listptr, char *data);
 void					init_list(t_command_list *list_ptr);
 int						is_exists(char *filename);
-char					*get_path(char *command);
+char					*get_path(char *command, int *perm);
 void					char_dir(char *path[]);
 int						build_in(char **command);
 int						ft_setenv(const char *name,

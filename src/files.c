@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 15:42:35 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/03 17:01:12 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/04 19:10:00 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		is_permitted(char *filename)
 	return (0);
 }
 
-char	*get_path(char *command)
+char	*get_path(char *command, int *permetted)
 {
 	char *path;
 	char *parsed;
@@ -44,8 +44,15 @@ char	*get_path(char *command)
 			tmp = ft_strjoin(parsed, "/");
 			parsed = ft_strjoin(tmp, command);
 			free(tmp);
-			if (is_exists(parsed) && is_permitted(parsed))
+			if (is_exists(parsed))
 			{
+				if (!is_permitted(parsed))
+				{
+					*permetted = 0;
+					continue;
+				}
+				else if (is_permitted(parsed))
+					*permetted = 1;
 				tmp = ft_strdup(parsed);
 				free(parsed);
 				free(path);
@@ -78,9 +85,9 @@ int		build_in1(char **command)
 	if (!ft_strcmp("setenv", command[0]))
 	{
 		if (command[1] && ft_strchr(command[1], '='))
-			ft_putenv(command[1]);
+			ft_putenv(ft_strdup(command[1]));
 		else if (command[1] && command[2])
-			ft_setenv(command[1], command[2], 1);
+			ft_setenv(ft_strdup(command[1]), ft_strdup(command[2]), 1);
 		return (1);
 	}
 	return (0);

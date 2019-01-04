@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 10:15:13 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/03 16:02:31 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/04 19:15:24 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,21 @@ void		free_command(char **command)
 	free(command);
 }
 
+void		error(char *message, char *command)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(message, 2);
+	ft_putstr_fd(command, 2);
+	ft_putstr_fd("\n", 2);
+}
+
 void		print_commands(t_command_list *cmd)
 {
 	t_command	*current;
 	char		**command;
+	int			is_permetted;
 
+	is_permetted = 1;
 	if (cmd->node_count)
 	{
 		current = cmd->head;
@@ -58,10 +68,11 @@ void		print_commands(t_command_list *cmd)
 			command = get_input(current->command);
 			if (command[0] && !build_in(command))
 			{
-				command[0] = get_path(command[0]);
-				launch_exec(command);
-				if (command[0])
-					free(command[0]);
+				g_set_signal = 1;
+				command[0] = get_path(command[0], &is_permetted);
+				is_permetted == 1 ? launch_exec(command) :
+					error("permission denied: ", command[0]);
+				command[0] ? free(command[0]) : 0;
 			}
 			free(command);
 			current = current->next;
@@ -70,9 +81,13 @@ void		print_commands(t_command_list *cmd)
 	}
 }
 
-void		handler()
+void		handler(int signal)
 {
-	write(1, "\n$> ", 4);
+	signal = 0;
+	if (g_set_signal == 0)
+		write(1, "\n$> ", 4);
+	if (g_set_signal == 1)
+		write(1, "\n", 1);
 }
 
 int			main(void)
@@ -84,7 +99,7 @@ int			main(void)
 	while (environ[size])
 		size++;
 	if (!(g_environ = (char **)malloc(sizeof(char *) * (size + 1))))
-	{}
+		;
 	ft_memcpy((char *)g_environ, (const char *)environ, sizeof(char *) * size);
 	g_environ[size] = NULL;
 	signal(SIGINT, &handler);
@@ -92,6 +107,7 @@ int			main(void)
 	{
 		write(1, "$> ", 3);
 		load_shell();
+		g_set_signal = 0;
 	}
 	free(g_environ);
 	return (0);
