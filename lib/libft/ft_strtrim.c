@@ -16,12 +16,10 @@ char	*ft_strtrim(char const *s)
 {
 	char			*string;
 	unsigned int	i;
-	unsigned int	counter;
 	unsigned int	len;
 	unsigned int	j;
 
 	i = 0;
-	counter = 0;
 	len = ft_strlen((char *)s);
 	while (s[i] && ft_isspace(s[i]))
 		i++;

@@ -21,6 +21,7 @@
 # include <signal.h>
 # include <unistd.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include "libft.h"
 
 # define MAX_LEN 1024

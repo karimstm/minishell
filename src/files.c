@@ -88,9 +88,6 @@ int		build_in1(char **command)
 
 int		build_in(char **command)
 {
-	int i;
-
-	i = 1;
 	if (ft_strcmp("env", command[0]) == 0)
 	{
 		print_env();

@@ -70,9 +70,8 @@ void		print_commands(t_command_list *cmd)
 	}
 }
 
-void		handler(int pid)
+void		handler()
 {
-	pid = 0;
 	write(1, "\n$> ", 4);
 }
 
@@ -85,7 +84,7 @@ int			main(void)
 	while (environ[size])
 		size++;
 	if (!(g_environ = (char **)malloc(sizeof(char *) * (size + 1))))
-		;
+	{}
 	ft_memcpy((char *)g_environ, (const char *)environ, sizeof(char *) * size);
 	g_environ[size] = NULL;
 	signal(SIGINT, &handler);

@@ -33,7 +33,7 @@ char		*ft_findenv(const char *name, int *offset)
 {
 	int			len;
 	int			i;
-	const char	*np;
+	const char	*np = NULL;
 	char		**p;
 	char		*cp;
 
