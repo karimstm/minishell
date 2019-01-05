@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 11:15:37 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/04 18:46:02 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/05 11:51:45 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		ft_setenv(const char *name, const char *value, int overwrite)
 	len = ft_strlen(name) + ft_strlen(value) + 2;
 	if (!(env = (char *)malloc(sizeof(char) * len)))
 		return (-1);
+	ft_memset(env, 0, len);
 	ft_strcat(env, name);
 	ft_strcat(env, "=");
 	ft_strcat(env, value);

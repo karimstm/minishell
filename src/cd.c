@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 18:06:34 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/03 16:53:04 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/05 11:24:57 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	change_env(char *oldpath, char *newpath)
 	if (oldpath == NULL)
 		oldpath = newpath;
 	ft_setenv("OLDPWD", oldpath, 1);
+	ft_setenv("PWD", newpath, 1);
 }
 
 int		old_path(char *path[], char *currentpath, char *oldpath)
@@ -28,9 +29,8 @@ int		old_path(char *path[], char *currentpath, char *oldpath)
 			if (chdir(oldpath) != -1)
 			{
 				change_env(currentpath, oldpath);
-				ft_setenv("PWD", oldpath, 1);
+				return (1);
 			}
-			return (1);
 		}
 	}
 	return (0);
@@ -80,7 +80,7 @@ void	char_dir(char *path[])
 	if (chdir(path[1]) == -1)
 		is_accessible(path[1]);
 	else
-		change_env(currentpath, path[1]);
+		ft_setenv("OLDPWD", currentpath, 1);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		ft_setenv("PWD", cwd, 1);
 }
