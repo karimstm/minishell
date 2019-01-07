@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 10:19:40 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/04 19:12:03 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/05 17:18:10 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ int						launch_exec(char **command);
 void					get_commands(char *input, t_command_list *cmd_list);
 void					load_shell(void);
 void					print_commands(t_command_list *cmd);
+void					error(char *meesage, char *command);
+void					whereis(char **command);
 
 #endif

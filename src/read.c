@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/02 10:37:59 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/03 16:53:21 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/07 08:02:33 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char		**get_input(char *input)
 	is_exist_tilda = ft_strchr(input, '~') ? 1 : 0;
 	is_dollar_exists = ft_strchr(input, '$') ? 1 : 0;
 	index = 0;
-	parsed = ft_strtok(input, " \t");
+	parsed = ft_strtok(input, " \t\"");
 	if (!(command = (char **)malloc(sizeof(char *) * MAX_LEN)))
 		return (NULL);
 	while (parsed != NULL)
@@ -80,7 +80,7 @@ char		**get_input(char *input)
 		parsed = manage_tilda(parsed, is_exist_tilda);
 		parsed = manage_dollar(parsed, is_dollar_exists);
 		command[index] = parsed;
-		parsed = ft_strtok(NULL, " \t");
+		parsed = ft_strtok(NULL, " \t\"");
 		index++;
 	}
 	command[index] = NULL;

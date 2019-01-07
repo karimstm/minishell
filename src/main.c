@@ -6,7 +6,7 @@
 /*   By: amoutik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 10:15:13 by amoutik           #+#    #+#             */
-/*   Updated: 2019/01/05 11:12:53 by amoutik          ###   ########.fr       */
+/*   Updated: 2019/01/05 13:26:56 by amoutik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ void		free_command(char **command)
 		i++;
 	}
 	free(command);
-}
-
-void		error(char *message, char *command)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(message, 2);
-	ft_putstr_fd(command, 2);
-	ft_putstr_fd("\n", 2);
 }
 
 void		print_commands(t_command_list *cmd)
